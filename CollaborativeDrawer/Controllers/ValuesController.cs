@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using CollaborativeDrawer.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace CollaborativeDrawer.Controllers
 {
@@ -7,11 +9,19 @@ namespace CollaborativeDrawer.Controllers
   [ApiController]
   public class ValuesController : ControllerBase
   {
+    private readonly DrawerContext context;
+
+    public ValuesController(DrawerContext context)
+    {
+      this.context = context;
+    }
     // GET api/values
     [HttpGet]
-    public ActionResult<IEnumerable<string>> Get()
+    public ActionResult<IEnumerable<Post>> Get()
     {
-      return new string[] { "value1", "value2" };
+      return context.Posts.ToList();
+
+        //return new string[] { "value1", "value2" };
     }
 
     // GET api/values/5
